@@ -1,11 +1,28 @@
 name: Actions Workflow
 
-on:
+on:  #https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+   #repository_dispatch:
    push:
+      branches:
+        - "master"     
    pull_request:
+      branches:
+         - master
+         - 'feature/*' # matches feature/featA, doesn't match feature/feat-A
+         - 'feature/**'
+         - '!feature/featc'
+      tags:
+         - v1.*
+      #tags-ignore:
+      paths:
+         - '**.js'
+      #paths-ignore:
+        #- "**.js"
+        #- "!filename.js"
       types: [closed, assigned, opened, reopened]
-   schedule:
-     - cron: "* * * * *"
+      #branches-ignore:
+   #schedule:
+    # - cron: "* * * * *"
 
 jobs:
    run-github-actions:
